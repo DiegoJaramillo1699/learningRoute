@@ -1,0 +1,25 @@
+package com.example.demo.controller;
+
+import com.example.demo.model.entities.Imagen;
+import com.example.demo.services.ImagenService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+@RestController()
+@RequestMapping(path = "/imagen")
+public class ImagenController {
+
+    @Autowired
+    ImagenService imagenService;
+
+    @PostMapping
+    public ResponseEntity<Imagen> guardarImagen(@RequestParam String id, @RequestParam(value="image",required=false) MultipartFile file){
+
+        return new ResponseEntity<>(this.imagenService.save(id, file), HttpStatus.CREATED);
+
+    }
+
+}
