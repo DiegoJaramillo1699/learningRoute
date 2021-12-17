@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.model.entities.Imagen;
+import com.example.demo.model.exceptions.ImagenIncompletaException;
 import com.example.demo.model.exceptions.ImagenNoEncontrada;
 import com.example.demo.repository.ImagenRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -16,8 +17,20 @@ public class ImagenServiceImp implements ImagenService{
     @Autowired
     ImagenRepository imagenRepository;
 
-public Imagen save(String id, MultipartFile file){
+public Imagen save(String id, MultipartFile file) throws ImagenIncompletaException {
 
+    if(id.isBlank() && file.isEmpty()){
+        throw new ImagenIncompletaException("Debe especificar un id y un archivo para la imagen");
+    }
+    else if(id.isBlank()){
+        throw new ImagenIncompletaException("Debe especificar un id para la imagen");
+    }
+    else if(file.isEmpty()){
+        throw new ImagenIncompletaException("El archivo de la imagen no debe estar vacío.");
+    }
+    else if(id.isBlank() && file.isEmpty()){
+        throw new ImagenIncompletaException("Debe especificar un id y un archivo para la imagen");
+    }
 
     try{
         byte[] image = Base64.encodeBase64(file.getBytes());

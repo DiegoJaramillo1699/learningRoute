@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.entities.Imagen;
+import com.example.demo.model.exceptions.ImagenIncompletaException;
 import com.example.demo.model.exceptions.ImagenNoEncontrada;
 import com.example.demo.services.ImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ImagenController {
     ImagenService imagenService;
 
     @PostMapping
-    public ResponseEntity<Imagen> guardarImagen(@RequestParam String id, @RequestParam(value="image",required=false) MultipartFile file){
+    public ResponseEntity<Imagen> guardarImagen(@RequestParam String id, @RequestParam(value="image",required=false) MultipartFile file) throws ImagenIncompletaException {
 
         return new ResponseEntity<>(this.imagenService.save(id, file), HttpStatus.CREATED);
 

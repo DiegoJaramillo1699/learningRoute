@@ -66,4 +66,11 @@ public class AppExceptionHandler {
 
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
+
+    @ResponseBody
+    @ExceptionHandler(value = ImagenIncompletaException.class)
+    public ResponseEntity<String> handleException(ImagenIncompletaException exception) {
+
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+    }
 }
