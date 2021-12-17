@@ -1,5 +1,6 @@
 package com.example.demo.model.exceptions;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -34,5 +35,12 @@ public class AppExceptionHandler {
     public ResponseEntity<String> handleException(SQLIntegrityConstraintViolationException exception) {
 
         return new ResponseEntity<>("Ya existe un cliente registrado con este documento",HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(value = EmptyResultDataAccessException.class)
+    public ResponseEntity<String> handleException(EmptyResultDataAccessException exception) {
+
+        return new ResponseEntity<>("No se encontró el cliente con el id indicado.",HttpStatus.BAD_REQUEST);
     }
 }

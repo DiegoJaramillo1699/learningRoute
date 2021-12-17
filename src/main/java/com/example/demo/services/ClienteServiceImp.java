@@ -56,6 +56,11 @@ public class ClienteServiceImp implements IClienteService{
 
     }
 
+    public void actualizarCliente(Cliente cliente){
+
+        this.clienteRepository.save(cliente);
+
+    }
 
     //función para convertir cliente a clienteDTO
     public ClienteDTO clienteToClienteDTO(Cliente cliente){

@@ -16,4 +16,5 @@ public interface IClienteService {
     public List<ClienteDTO> clientesToClientesDTO(List<Cliente> clientes);
     public List<Cliente> findByEdadGreaterThan(Long edad);
     public void deleteCliente(Long id);
+    public void actualizarCliente(Cliente cliente);
 }

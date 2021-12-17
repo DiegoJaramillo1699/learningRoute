@@ -42,6 +42,18 @@ public class ClienteController {
     }
 
     @Transactional
+    //@ApiOperation(response = Cliente.class ,value = "Crear un cliente", notes = "Esta operaci�n retorna el cliente creado dada su informaci�n.")
+    @PutMapping
+    private ResponseEntity<String> actualizarCliente(@Valid @RequestBody Cliente cliente){
+
+        //Cliente aux = clienteService.create(cliente);
+
+        clienteService.create(cliente);
+        return new ResponseEntity<String>("Cliente actualizado con éxito", HttpStatus.CREATED);
+
+    }
+
+    @Transactional
     @DeleteMapping
     private ResponseEntity<String> deleteCliente(@RequestParam Long id){
 
