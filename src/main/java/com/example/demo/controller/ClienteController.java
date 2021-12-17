@@ -14,6 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class ClienteController {
 
     @Transactional
     @DeleteMapping
-    private ResponseEntity<String> deleteCliente(@RequestParam Long id){
+    private ResponseEntity<String> deleteCliente(@RequestParam @NotEmpty Long id){
 
         this.clienteService.deleteCliente(id);
         return new ResponseEntity<String>("Cliente borrado con éxito", HttpStatus.OK);

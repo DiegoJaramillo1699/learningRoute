@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.model.entities.Imagen;
+import com.example.demo.model.exceptions.ImagenNoEncontrada;
 import com.example.demo.repository.ImagenRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class ImagenServiceImp implements ImagenService{
     ImagenRepository imagenRepository;
 
 public Imagen save(String id, MultipartFile file){
+
 
     try{
         byte[] image = Base64.encodeBase64(file.getBytes());
@@ -36,6 +38,15 @@ public List<Imagen> findAll(){
 
 }
 
+public void borrarImagen(String id) throws ImagenNoEncontrada {
 
+    if(id.isBlank()){
+        throw new ImagenNoEncontrada("Debe especificar un id para la imagen a eliminar.");
+    }
+    Imagen imagen = this.imagenRepository.findById(id).orElseThrow(() -> new ImagenNoEncontrada("No se encontró una imagen con el id indicado"));
+
+     this.imagenRepository.deleteById(id);
+
+}
 
 }
