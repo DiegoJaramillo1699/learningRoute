@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 
@@ -47,6 +48,7 @@ class ImagenServiceImpTest {
         when(imagenRepository.findAll()).thenReturn(Arrays.asList(imagen));
         assertNotNull(imagenServiceImp.findAll());
     }
+
 
 
 }

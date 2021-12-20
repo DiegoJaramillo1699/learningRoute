@@ -77,7 +77,7 @@ public class ClienteController {
     }
     @GetMapping("id")
     private ResponseEntity<Object> findById(@RequestParam Long id) throws ClienteNoEncontradoException {
-        System.out.println("Eche el id es "+id);
+
         Cliente cliente = clienteService.findById(id);
 
       /*  if(cliente == null){
@@ -87,7 +87,7 @@ public class ClienteController {
 
         ClienteDTO clienteDTO = this.clienteService.clienteToClienteDTO(cliente);
         //System.out.println(clientes.get(0).getVisitas().get(0).getFechaInicio().toString());
-        return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
+        return new ResponseEntity<>(clienteDTO, HttpStatus.FOUND);
     }
 
     @GetMapping("documentoytipo")
@@ -101,7 +101,7 @@ public class ClienteController {
 
         ClienteDTO clienteDTO = this.clienteService.clienteToClienteDTO(cliente);
         //System.out.println(clientes.get(0).getVisitas().get(0).getFechaInicio().toString());
-        return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
+        return new ResponseEntity<>(clienteDTO, HttpStatus.FOUND);
     }
 
     @GetMapping("mayorQue")
@@ -115,7 +115,7 @@ public class ClienteController {
 
         List<ClienteDTO> clientesDTO = this.clienteService.clientesToClientesDTO(clientes);
         //System.out.println(clientes.get(0).getVisitas().get(0).getFechaInicio().toString());
-        return new ResponseEntity<>(clientesDTO, HttpStatus.OK);
+        return new ResponseEntity<>(clientesDTO, HttpStatus.FOUND);
     }
 
     /*@ResponseStatus(HttpStatus.BAD_REQUEST)
