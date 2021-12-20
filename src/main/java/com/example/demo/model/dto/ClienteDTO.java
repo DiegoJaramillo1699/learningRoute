@@ -1,10 +1,12 @@
 package com.example.demo.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Column;
 
 @Data
+//@AllArgsConstructor
 public class ClienteDTO {
 
     private Long id;

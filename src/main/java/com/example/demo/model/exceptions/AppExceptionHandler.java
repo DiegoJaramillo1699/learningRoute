@@ -73,4 +73,11 @@ public class AppExceptionHandler {
 
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
+
+    @ResponseBody
+    @ExceptionHandler(value = ClienteNoEncontradoException.class)
+    public ResponseEntity<String> handleException(ClienteNoEncontradoException exception) {
+
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+    }
 }

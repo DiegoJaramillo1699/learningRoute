@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.model.dto.ClienteDTO;
 import com.example.demo.model.entities.Cliente;
 import com.example.demo.model.entities.Imagen;
+import com.example.demo.model.exceptions.ClienteNoEncontradoException;
 import com.example.demo.model.helpers.IMapper;
 import com.example.demo.repository.ClienteRepository;
 import com.example.demo.repository.ImagenRepository;
@@ -24,6 +25,7 @@ public class ClienteServiceImp implements IClienteService{
     @Autowired
     IMapper mapper;
 
+
     public void create(Cliente cliente){
 
         this.clienteRepository.save(cliente);
@@ -35,6 +37,12 @@ public class ClienteServiceImp implements IClienteService{
 
         return this.clienteRepository.findAll();
 
+    }
+
+    public Cliente findById(Long id) throws ClienteNoEncontradoException{
+
+        System.out.println(id);
+        return this.clienteRepository.findById(id).orElseThrow(()-> new ClienteNoEncontradoException("No se encontró el cliente"));
     }
 
     public Cliente findByDocumentoAndTipo(String documento,String tipo){

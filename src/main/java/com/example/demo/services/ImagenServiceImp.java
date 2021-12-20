@@ -17,7 +17,7 @@ public class ImagenServiceImp implements ImagenService{
     @Autowired
     ImagenRepository imagenRepository;
 
-public Imagen save(String id, MultipartFile file) throws ImagenIncompletaException {
+    public Imagen save(String id, MultipartFile file) throws ImagenIncompletaException {
 
     if(id.isBlank() && file.isEmpty()){
         throw new ImagenIncompletaException("Debe especificar un id y un archivo para la imagen");
@@ -28,9 +28,7 @@ public Imagen save(String id, MultipartFile file) throws ImagenIncompletaExcepti
     else if(file.isEmpty()){
         throw new ImagenIncompletaException("El archivo de la imagen no debe estar vacío.");
     }
-    else if(id.isBlank() && file.isEmpty()){
-        throw new ImagenIncompletaException("Debe especificar un id y un archivo para la imagen");
-    }
+
 
     try{
         byte[] image = Base64.encodeBase64(file.getBytes());
@@ -42,7 +40,6 @@ public Imagen save(String id, MultipartFile file) throws ImagenIncompletaExcepti
         e.printStackTrace();
         return null;
     }
-
 
 }
 

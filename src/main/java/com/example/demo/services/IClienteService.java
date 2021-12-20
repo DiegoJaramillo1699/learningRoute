@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.model.dto.ClienteDTO;
 import com.example.demo.model.entities.Cliente;
+import com.example.demo.model.exceptions.ClienteNoEncontradoException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface IClienteService {
     public List<Cliente> findByEdadGreaterThan(Long edad);
     public void deleteCliente(Long id);
     public void actualizarCliente(Cliente cliente);
+    public Cliente findById(Long id) throws ClienteNoEncontradoException;
 }

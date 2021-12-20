@@ -2,8 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.model.dto.ClienteDTO;
 import com.example.demo.model.entities.Cliente;
+import com.example.demo.model.exceptions.ClienteNoEncontradoException;
+import com.example.demo.repository.ClienteRepository;
+import com.example.demo.services.ClienteServiceImp;
 import com.example.demo.services.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,7 +32,6 @@ public class ClienteController {
 
     @Autowired
     IClienteService clienteService;
-
 
     @Transactional
     //@ApiOperation(response = Cliente.class ,value = "Crear un cliente", notes = "Esta operaci�n retorna el cliente creado dada su informaci�n.")
@@ -71,6 +74,20 @@ public class ClienteController {
 
         //System.out.println(clientes.get(0).getVisitas().get(0).getFechaInicio().toString());
         return new ResponseEntity<>(clienteService.clientesToClientesDTO(clienteService.findAll()), HttpStatus.OK);
+    }
+    @GetMapping("id")
+    private ResponseEntity<Object> findById(@RequestParam Long id) throws ClienteNoEncontradoException {
+        System.out.println("Eche el id es "+id);
+        Cliente cliente = clienteService.findById(id);
+
+      /*  if(cliente == null){
+            return new ResponseEntity<>("No se encontró el cliente controller", HttpStatus.NOT_FOUND);
+        }*/
+
+
+        ClienteDTO clienteDTO = this.clienteService.clienteToClienteDTO(cliente);
+        //System.out.println(clientes.get(0).getVisitas().get(0).getFechaInicio().toString());
+        return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
     }
 
     @GetMapping("documentoytipo")
