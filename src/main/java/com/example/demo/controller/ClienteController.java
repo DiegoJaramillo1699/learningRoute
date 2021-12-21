@@ -78,6 +78,12 @@ public class ClienteController {
 
     }
 
+
+    @Operation(summary = "Borra un cliente de la base de datos.",description = "Se debe especificar el id del cliente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Cliente borrado."),
+            @ApiResponse(responseCode = "400", description = "No se encontró el cliente a borrar.",
+                    content = @Content) })
     @Transactional
     @DeleteMapping
     private ResponseEntity<String> deleteCliente(@RequestParam @NotEmpty Long id){
@@ -87,7 +93,12 @@ public class ClienteController {
 
     }
 
-
+    @Operation(summary = "Obtiene todos los clientes de la base de datos.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Clientes obtenidos con éxito.",
+                    content = { @Content(mediaType = "application/json") }),
+            @ApiResponse(responseCode = "400", description = "No se pudieron obtener los clientes.",
+                    content = @Content) })
     @GetMapping
     private ResponseEntity<List<ClienteDTO>> obtenerClientes() {
         List<Cliente> clientes = clienteService.findAll();
@@ -96,21 +107,30 @@ public class ClienteController {
         //System.out.println(clientes.get(0).getVisitas().get(0).getFechaInicio().toString());
         return new ResponseEntity<>(clienteService.clientesToClientesDTO(clienteService.findAll()), HttpStatus.OK);
     }
+
+    @Operation(summary = "Obtiene un cliente de la base de datos.",description = "Se debe especificar el id del cliente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Cliente obtenido.",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ClienteDTO.class))  }),
+            @ApiResponse(responseCode = "400", description = "No se encontró el cliente solicitado o los parámetros no son apropiados.",
+                    content = @Content) })
     @GetMapping("id")
     private ResponseEntity<Object> findById(@RequestParam Long id) throws ClienteNoEncontradoException {
 
         Cliente cliente = clienteService.findById(id);
-
-      /*  if(cliente == null){
-            return new ResponseEntity<>("No se encontró el cliente controller", HttpStatus.NOT_FOUND);
-        }*/
-
-
+        
         ClienteDTO clienteDTO = this.clienteService.clienteToClienteDTO(cliente);
         //System.out.println(clientes.get(0).getVisitas().get(0).getFechaInicio().toString());
         return new ResponseEntity<>(clienteDTO, HttpStatus.FOUND);
     }
 
+    @Operation(summary = "Obtiene un cliente de la base de datos.",description = "Se debe especificar el tipo de documento y documento del cliente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Cliente obtenido.",
+                    content = { @Content(mediaType = "application/json") }),
+            @ApiResponse(responseCode = "400", description = "No se encontró el cliente solicitado o los parámetros no son apropiados.",
+                    content = @Content) })
     @GetMapping("documentoytipo")
     private ResponseEntity<Object> findByDocumentoAndTipo(@RequestParam String documento,
     @RequestParam String tipo) {
@@ -125,6 +145,12 @@ public class ClienteController {
         return new ResponseEntity<>(clienteDTO, HttpStatus.FOUND);
     }
 
+    @Operation(summary = "Obtiene clientes de la base de datos mayores a cierta edad.",description = "Se debe especificar la edad que corresponde al límite inferior de la búsqueda.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Clientes obtenidos.",
+                    content = { @Content(mediaType = "application/json") }),
+            @ApiResponse(responseCode = "400", description = "No se encontraron los clientes o los parámetros no son apropiados.",
+                    content = @Content) })
     @GetMapping("mayorQue")
     private ResponseEntity<Object> findByAgeGreaterThan(@RequestParam Long edad) {
         List<Cliente> clientes = clienteService.findByEdadGreaterThan(edad);
