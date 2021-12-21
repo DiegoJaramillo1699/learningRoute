@@ -6,6 +6,14 @@ import com.example.demo.model.exceptions.ClienteNoEncontradoException;
 import com.example.demo.repository.ClienteRepository;
 import com.example.demo.services.ClienteServiceImp;
 import com.example.demo.services.IClienteService;
+/*import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses; */
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.http.HttpStatus;
@@ -33,6 +41,12 @@ public class ClienteController {
     @Autowired
     IClienteService clienteService;
 
+    @Operation(summary = "Crea un cliente en la base de datos.",description = "No es necesario enviar el archivo de la imagen, se puede hacer mediante el controlador de Imagen.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Cliente creado.",
+                    content = { @Content(mediaType = "application/json") }),
+            @ApiResponse(responseCode = "400", description = "Ya existe un cliente registrado con el documento",
+                    content = @Content) })
     @Transactional
     //@ApiOperation(response = Cliente.class ,value = "Crear un cliente", notes = "Esta operaci�n retorna el cliente creado dada su informaci�n.")
     @PostMapping
@@ -45,6 +59,13 @@ public class ClienteController {
 
     }
 
+
+    @Operation(summary = "Actualiza un cliente en la base de datos.",description = "Es necesario enviar el cliente junto con el id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Cliente actualizado.",
+                    content = { @Content(mediaType = "application/json") }),
+            @ApiResponse(responseCode = "400", description = "Ya existe un cliente registrado con el documento",
+                    content = @Content) })
     @Transactional
     //@ApiOperation(response = Cliente.class ,value = "Crear un cliente", notes = "Esta operaci�n retorna el cliente creado dada su informaci�n.")
     @PutMapping
