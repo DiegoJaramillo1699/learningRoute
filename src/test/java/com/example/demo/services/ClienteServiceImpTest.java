@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
 import com.example.demo.model.entities.Cliente;
-import com.example.demo.model.exceptions.AppExceptionHandler;
 import com.example.demo.model.exceptions.ClienteNoEncontradoException;
 import com.example.demo.repository.ClienteRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,12 +11,11 @@ import org.mockito.MockitoAnnotations;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.*;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 class ClienteServiceImpTest {
 
