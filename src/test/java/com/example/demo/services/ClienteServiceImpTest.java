@@ -55,15 +55,15 @@ class ClienteServiceImpTest {
     }
 
     @Test
-    void findByDocumentoAndTipo(){
-        when(clienteRepository.findByDocumentoAndTipo(cliente.getDocumento(),cliente.getTipo())).thenReturn(cliente);
-        assertNotNull(clienteServiceImp.findByDocumentoAndTipo(cliente.getDocumento(),cliente.getTipo()));
+    void findByDocumentoAndTipo() {
+        when(clienteRepository.findByDocumentoAndTipo(cliente.getDocumento(), cliente.getTipo())).thenReturn(cliente);
+        assertNotNull(clienteServiceImp.findByDocumentoAndTipo(cliente.getDocumento(), cliente.getTipo()));
     }
 
     @Test
     void findByEdadGreaterThan() {
-        when(clienteRepository.findByEdadGreaterThan(cliente.getEdad()-1)).thenReturn(Arrays.asList(cliente));
-        assertNotNull(clienteServiceImp.findByEdadGreaterThan(cliente.getEdad()-1));
+        when(clienteRepository.findByEdadGreaterThan(cliente.getEdad() - 1)).thenReturn(Arrays.asList(cliente));
+        assertNotNull(clienteServiceImp.findByEdadGreaterThan(cliente.getEdad() - 1));
     }
 
     @Test
